@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong User:
+  = @like.user
+p
+  strong Post:
+  = @like.post
+
+=> link_to 'Edit', edit_like_path(@like)
+'|
+=< link_to 'Back', likes_path

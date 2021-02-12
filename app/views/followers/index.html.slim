@@ -1,0 +1,21 @@
+h1 Listing followers
+
+table
+  thead
+    tr
+      th User
+      th
+      th
+      th
+
+  tbody
+    - @followers.each do |follower|
+      tr
+        td = follower.user
+        td = link_to 'Show', follower
+        td = link_to 'Edit', edit_follower_path(follower)
+        td = link_to 'Destroy', follower, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Follower', new_follower_path

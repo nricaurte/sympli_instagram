@@ -1,0 +1,12 @@
+= form_for @follower do |f|
+  - if @follower.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@follower.errors.count, "error")} prohibited this follower from being saved:"
+      ul
+        - @follower.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :user
+    = f.text_field :user
+  .actions = f.submit
