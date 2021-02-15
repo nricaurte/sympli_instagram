@@ -1,0 +1,98 @@
+
+div[ class="wrapper"]
+	div[ class="header"]
+		div[ class="top bg-white"]
+			div[ class="logo"]
+      		= image_tag"instagram.png" 
+			p[class="pt-3 text-gray-500 text-center font-bold text-lg"]Regístrate para ver fotos y videos de tus amigos	
+		div[ class="pt-3"]
+				button[class="w-full items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:text-sm"]
+					|Iniciar sesión con Facebook
+      
+				div[ class="or"]
+					div[ class="line"]
+					p O
+					div[ class="line"]
+		= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| 
+			= f.error_notification
+			div[ class="form"]
+				div[ class="input_field"]
+					=f.input :username,
+					required: true,
+					autofocus: true,
+					label:false,
+					input_html: { autocomplete: "username", placeholder:"Username", class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"}
+
+				div[ class="input_field"]
+					=f.input :full_name,
+					required: true,
+					autofocus: true,
+					label:false,
+					input_html: { autocomplete: "full_name", placeholder:"Fullname", class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"}
+
+
+
+				div[ class="input_field"]
+					=f.input :phone,
+					required: true,
+					autofocus: true,
+					label:false,
+					input_html: { autocomplete: "phone", placeholder:"Phone", class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"}
+				
+				
+				div[ class="input_field"]
+					=f.input :email,
+					required: true,
+					autofocus: true,
+					label:false,
+					input_html: { autocomplete: "email", placeholder:"Email", class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"}
+			
+				div[ class="input_field"]
+					=f.input :password,
+						required: true,
+						label:false,
+						hint: ("#{@minimum_password_length} caracteres minimos" if @minimum_password_length),
+						input_html: { autocomplete: "new-password", placeholder:"Password", class:"shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" }
+				
+				div[ class="input_field"]
+					=f.input :password_confirmation,
+						required: true,
+						label:false,
+						input_html: { autocomplete: "new-password", placeholder:"Re-Password", class:"shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" }	
+
+				
+					a = f.button :submit, "Crear cuenta",
+						button_html: {class:"cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold w-100 rounded "}
+			
+			div[ class="dif"]
+				p[class="text-gray-400 text-center text-bold"]Al registrarte, aceptas nuestras Condiciones, la Política de datos y la Política de cookies. 
+			
+				div[ class="signup"]
+					p ¿Tienes una cuenta?					
+					= link_to "Inicia sesión", new_session_path(resource_name), class:"forgotpass bg-transparent hover:bg-transparent py-2 px-4"  
+			
+		
+		div[ class="apps"]
+			p Descargar app.
+			div[ class="icons"]
+				 a  =image_tag("appstore.png") 
+				 a  =image_tag("googleplay.png")
+		
+	div[ class="footer"]
+		div[ class="links"]
+			ul
+				li[class="text-gray-400"] Inforrmación
+				li[class="text-gray-400"] Blog
+				li[class="text-gray-400"] Empleo
+				li[class="text-gray-400"] API
+				li[class="text-gray-400"] Privacidad
+				li[class="text-gray-400"] Condiciones
+				li[class="text-gray-400"] Cuentas destacadas
+				li[class="text-gray-400"] Hashtags
+				li[class="text-gray-400"] Ubicaciones
+				li[class="text-gray-400"] Belleza
+				li[class="text-gray-400"] Danza y espectáculos
+		
+		div[ class="copyright"]
+			p © 2021 Instagram
+
