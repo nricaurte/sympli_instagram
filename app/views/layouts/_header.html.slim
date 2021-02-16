@@ -1,0 +1,78 @@
+nav[ class="border-b px-4 py-2 bg-white"]
+  div[ class="flex flex-wrap items-center justify-between md:justify-around"]
+
+    img[class="h-10" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/150px-Instagram_logo.svg.png" alt="instagram" ]
+
+    div[data-controller="profiles" data-reflex-root="#morph" class="relative hidden sm:block text-gray-500"]
+      input[class="search-bar max-w-xs border rounded bg-gray-200 px-4 text-center outline-none focus:border-gray-400"
+            type="search"
+            placeholder="Search"
+            data-target="profiles.query"
+            data-action="input->profiles#search" ]
+
+      div[id="morph" class="mt-4 absolute bg-while-instagram"]
+        span[data-target="profiles.activity" class="text-danger" hidden] Searching for profiles...
+        //span[data-target="profiles.count" class="text-success"]  = @profiles.count if @profiles.present?
+        table[data-target="profiles.list" class="table" ]
+          tbody
+            - if @profiles.present?
+              - @profiles.each do |profile|
+                tr
+                  td[class="px-6 py-4 whitespace-nowrap"]
+                    a[class="inline-flex items-center h-12 px-4  text-sm text-indigo-100 transition-colors duration-150  rounded-lg focus:shadow-outline hover:bg-gray-200 bg-while" href="/profile/#{profile.username}"]
+                      div[class="flex items-center"]
+                        div[class="flex-shrink-0 h-10 w-10"]
+                          - unless profile.picture.url.nil?
+                            img[src="#{profile.picture.url}" alt="picture" class="h-10 w-10 rounded-full"]
+                          - else
+                            img[class="h-10 w-10 rounded-full" src="https://avatars.githubusercontent.com/u/7952951?s=400&v=4?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60" alt=""]
+                        div[class="ml-4"]
+                          div[class="text-sm font-medium text-gray-900"] = profile.username
+                          div[class="text-sm text-gray-500"] = profile.email
+
+
+
+    -if current_user.present?
+
+      div[class="text-gray-500 hidden sm:block"]
+        div
+          a[class="inline-flex items-center h-8 px-4 m-2 text-sm text-indigo-100 transition-colors duration-150  rounded-lg focus:shadow-outline hover:bg-gray-200 bg-while" href="#{posts_path}"]
+            svg[class= "h-6 w-6 text-indigo-500" xmlns= "http://www.w3.org/2000/svg" fill= "none" viewBox= "0 0 24 24" stroke= "currentColor" ]
+              path[ stroke-linecap= "round" stroke-linejoin= "round" stroke-width= "2" d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" ]
+
+
+      div[class="text-gray-500"]
+        div
+          a[class="inline-flex items-center h-8 px-4 m-2 text-sm text-indigo-100 transition-colors duration-150  rounded-lg focus:shadow-outline hover:bg-gray-200 bg-while" href="#{new_post_path}"]
+            svg[class= "h-6 w-6 text-indigo-500" xmlns= "http://www.w3.org/2000/svg" fill= "none" viewBox= "0 0 24 24" stroke= "currentColor" ]
+              path[ stroke-linecap= "round" stroke-linejoin= "round" stroke-width= "2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" ]
+
+      div[class="text-gray-500"]
+        div
+          a[class="inline-flex items-center h-8 px-4 m-2 text-sm text-indigo-100 transition-colors duration-150  rounded-lg focus:shadow-outline hover:bg-gray-200 bg-while" href="#{followers_requests_by_user_path}"]
+            svg[class= "h-6 w-6 text-indigo-500" xmlns= "http://www.w3.org/2000/svg" fill= "none" viewBox= "0 0 24 24" stroke= "currentColor" ]
+              path[ stroke-linecap= "round" stroke-linejoin= "round" stroke-width= "2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"  ]
+
+
+      div[@click.away="open = false" class="space-x-4 hidden sm:block" x-data="{ open: false }"]
+        div
+          button[@click="open = !open" class="max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid"]
+          span[class="sr-only"]Open user menu
+          -unless current_user.picture.url.nil?
+            img[src="#{current_user.picture.url}" alt="picture" class="h-8 w-8 rounded-full"]
+          -else
+            img[class="h-8 w-8 rounded-full" src="https://avatars.githubusercontent.com/u/7952951?s=400&v=4?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60" alt=""]
+
+          // x-show="open"
+          div[ class="origin-top-right absolute  mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="user-menu"]
+            a[href="/profile/#{current_user.username}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"]Your Profile
+            = link_to 'Sign Out', destroy_user_session_path, method: :delete, class:"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+
+    - else
+      div[class="text-gray-500"]
+        div
+          a[class="inline-flex items-center h-8 px-4 m-2  transition-colors duration-150 bg-blue-500  rounded-lg text-sm text-while focus:shadow-outline hover:bg-gray-200 white-instagram font-sm " href="#{new_user_session_path}"] Sign In
+          a[class="inline-flex items-center h-8 px-4 m-2  transition-colors duration-150  rounded-lg focus:shadow-outline hover:bg-gray-200 text-blue-500 blue-instagram font-normal text-sm" href="#{new_user_registration_path}"] Sign Out
+
+            
+

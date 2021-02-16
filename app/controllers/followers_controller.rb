@@ -6,6 +6,11 @@ class FollowersController < ApplicationController
     @followers = Follower.all
   end
 
+  # GET /followers or /followers.json
+  def requests_by_user
+    @followers = Follower.all
+  end
+
   # GET /followers/1 or /followers/1.json
   def show
   end

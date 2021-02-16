@@ -54,6 +54,6 @@ end
   Like.create  user: User.all.sample, post: Post.all.sample
 end
 
-5.times do
+100.times do
   Follower.create  user: User.all.sample, follower_user: User.all.sample,  state: Faker::Base.rand_in_range(1,3)
 end
