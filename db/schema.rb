@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(version: 2021_02_12_033824) do
     t.string "phone"
     t.string "website"
     t.string "bio"
+    t.string "pipedrive_id"
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"

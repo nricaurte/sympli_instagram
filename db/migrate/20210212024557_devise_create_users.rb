@@ -27,6 +27,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       t.string     :phone
       t.string     :website
       t.string     :bio
+      t.string     :pipedrive_id
 
       ## Confirmable
       t.string   :confirmation_token
