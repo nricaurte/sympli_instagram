@@ -16,6 +16,8 @@ def create_user(email: nil, password_random: false, model_type: "User")
       email: email, password: pwd,
       password_confirmation: pwd, confirmed_at: Time.current,
       created_at: Faker::Date.backward(days: 60),
+      username: Faker::Company.name,
+      full_name: Faker::Company.name,
       phone: "3143205300"
     }
     user = User.new(attributes)

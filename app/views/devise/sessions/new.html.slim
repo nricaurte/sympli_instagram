@@ -1,0 +1,68 @@
+div[ class="wrapper"]
+	div[ class="header"]
+		div[ class="top"]
+			div[ class="logo"]
+      		= image_tag"instagram.png" 	
+		=simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| 
+			div[ class="form"]
+				div[ class="input_field"]
+					=f.input :email,
+					required: false,
+					autofocus: true,
+					label:false,
+					input_html: { autocomplete: "email", placeholder:"Email", class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"}
+			
+				div[ class="input_field"]
+					=f.input :password,
+						required: false,
+						label:false,
+						input_html: { autocomplete: "current-password", placeholder:"Password", class:"shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" }
+			
+				
+					a = f.button :submit, "Log in",
+						button_html: {class:"cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold w-100 rounded "}
+    			
+				  
+				div[ class="or"]
+					div[ class="line"]
+					p O
+					div[ class="line"]
+			
+			div[ class="dif"]
+				div[ class="fb"]
+					=image_tag"facebook.png" 
+					p Iniciar sesión con Facebook
+				
+				div[class="flex justify-center text-green-500"]					
+					=link_to "¿Olvidaste tu contraseña?", new_password_path(resource_name), class:"forgotpass bg-transparent hover:bg-transparent hover:text-green-400 font-bold py-2 px-4" 
+			
+				div[ class="signup"]
+					p ¿No tienes una cuenta? 
+					= link_to "Registrate", new_registration_path(resource_name), class:"forgotpass bg-transparent hover:bg-transparent py-2 px-4" 
+			
+		
+		div[ class="apps"]
+			p Descargar app.
+			div[ class="icons"]
+				 a  =image_tag("appstore.png") 
+				 a  =image_tag("googleplay.png")
+		
+	div[ class="footer"]
+		div[ class="links"]
+			ul
+				li[class="text-gray-400"] Inforrmación
+				li[class="text-gray-400"] Blog
+				li[class="text-gray-400"] Empleo
+				li[class="text-gray-400"] API
+				li[class="text-gray-400"] Privacidad
+				li[class="text-gray-400"] Condiciones
+				li[class="text-gray-400"] Cuentas destacadas
+				li[class="text-gray-400"] Hashtags
+				li[class="text-gray-400"] Ubicaciones
+				li[class="text-gray-400"] Belleza
+				li[class="text-gray-400"] Danza y espectáculos
+		
+		div[ class="copyright"]
+			p © 2021 Instagram
+
+

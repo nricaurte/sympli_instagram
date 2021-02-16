@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(version: 2021_02_12_033824) do
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.string "username"
+    t.string "full_name"
     t.string "phone"
     t.string "website"
     t.string "bio"

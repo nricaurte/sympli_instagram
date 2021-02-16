@@ -6,7 +6,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :confirmable, :lockable, :timeoutable, :trackable
 
   has_one_attached :picture
-  validates :phone, :email, :username, presence: true
+
+  validates :phone, :email, :full_name, :username, presence: true
   has_many :posts
   has_many :likes
 
