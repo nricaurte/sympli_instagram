@@ -23,6 +23,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
 
 
       t.string     :username
+      t.string     :full_name
       t.string     :phone
       t.string     :website
       t.string     :bio
