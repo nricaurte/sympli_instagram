@@ -14,7 +14,8 @@
  *= require_self
  */
 
- @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
 *{
 	margin: 0;
@@ -202,5 +203,33 @@ body{
 	border: 1px solid #efefef;
 }
 
+
+.pb-full {
+    padding-bottom: 100%;
+}
+
+/* hide search icon on search focus */
+.search-bar:focus + .fa-search{
+    display: none;
+}
+
+@media screen and (min-width: 768px) {
+    .post:hover .overlay {
+        display: block;
+    }
+}
+
+.blue-instagram{
+    color:blue !important;
+
+}
+
+.white-instagram{
+    color: white !important;
+}
+
+.bg-while-instagram{
+    background-color: rgba(255, 255, 255, 1) !important;
+}
 
 

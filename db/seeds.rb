@@ -16,6 +16,8 @@ def create_user(email: nil, password_random: false, model_type: "User")
       email: email, password: pwd,
       password_confirmation: pwd, confirmed_at: Time.current,
       created_at: Faker::Date.backward(days: 60),
+      username: Faker::Company.name,
+      full_name: Faker::Company.name,
       phone: "3143205300"
     }
     user = User.new(attributes)
@@ -54,6 +56,6 @@ end
   Like.create  user: User.all.sample, post: Post.all.sample
 end
 
-5.times do
+100.times do
   Follower.create  user: User.all.sample, follower_user: User.all.sample,  state: Faker::Base.rand_in_range(1,3)
 end

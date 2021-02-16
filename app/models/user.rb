@@ -1,11 +1,13 @@
 class User < ApplicationRecord
+  searchkick
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable, :lockable, :timeoutable, :trackable
 
   has_one_attached :picture
-  validates :phone, :email, :full_name, presence: true
+
+  validates :phone, :email, :full_name, :username, presence: true
   has_many :posts
   has_many :likes
 
@@ -15,4 +17,5 @@ class User < ApplicationRecord
   def name
     email
   end
+
 end

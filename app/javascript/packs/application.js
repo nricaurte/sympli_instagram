@@ -14,4 +14,8 @@ ActiveStorage.start()
 
 
 //CSS
+import 'alpine-turbolinks-adapter'
+import 'alpinejs'
 import "../css/application.scss"
+import "controllers"
+
