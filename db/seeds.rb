@@ -40,19 +40,15 @@ bulk_create_user(10)
   create_user(email: email)
 end
 
-5.times do
+100.times do
   Post.create content: Faker::Company.name, user: User.all.sample
 end
 
-5.times do
-  Comment.create content: Faker::Company.name, user: User.all.sample, post: Post.all.sample
-end
-
-5.times do
+100.times do
   Comment.create content: Faker::Quotes::Shakespeare.hamlet_quote, user: User.all.sample, post: Post.all.sample
 end
 
-5.times do
+100.times do
   Like.create  user: User.all.sample, post: Post.all.sample
 end
 
