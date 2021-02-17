@@ -1,43 +1,58 @@
-- @posts.each do |post|
+- @posts.order(created_at: :desc).each do |post|
     div[style="display:flex; justify-content:center; align-items:center;"]
-      .bg-white.max-w-screen-sm.mt-5.mb-5.pt-5.border.border-gray-400
-        .flex.space-x-3.pl-3
-          .flex-shrink-0.
-            img.h-10.w-10.rounded-full[src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt=""]
-          .min-w-0.flex-1
-            p.text-sm.font-medium.text-gray-900.pt-3 
-              a.hover:underline[href="#"]
-                =post.user.username
-            p.text-sm.text-gray-500
-              a.hover:underline[href="#"]
-        img[src="#{post.picture.url}"alt="avatar" style="height: 200px; width: 400px; " class="pt-10 "]
-        
-        .mt-5.w-24.pl-3
-          .flex.space-x-3
-            .w-100.flex-1.pt-1
-              svg[xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"] 
-                path[stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"] 
-            
-            .w-100.flex-1.pt-1
-              svg[xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"] 
-                path [stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"]
+      div[class="bg-white max-w-screen-sm mt-5 mb-5 pt-3 border border-gray-400"]
+        div[class="flex"]
+         div[class="whitespace-nowrap "]
+            div[class="flex items-center"]
+              div[class="flex-shrink-0 w-3"]
+              -if post.user.picture.url.nil?
+                img[class="h-10 w-10 rounded-full" src="https://avatars.githubusercontent.com/u/7952951?s=400&v=4?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60" alt=""]
+              -else
+                  img[class="h-10 w-10 rounded-full" src="#{post.user.picture.url}" alt=""]
+              div[class="ml-2"]
+                div[class="text-sm font-medium text-gray-900"] = post.user.username
+        img[src="#{post.picture.url}"alt="picture" style="height: 450px; width: 550px; " class="pt-2 "]
 
 
-            .w-100.flex-1.transform.rotate-45 
-              svg [xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"]
-                path [stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"]
-        
-        -post.comments.all.each do |c|
-          p[class="pl-3 pt-2"] =c.content
+        div
+          button[
+            class="inline-flex items-center h-8 px-4  text-sm text-indigo-100 transition-colors duration-150  rounded-lg  hover:bg-while bg-while focus:outline-none"
+            data-reflex="click->Likes#like"
+            data-user_id="#{current_user.id}"
+            data-post_id="#{post.id}" ]
+            - if Like.where(user:current_user, post:post).count == 0
+              svg[class= "h-8 w-8 text-gray-900" xmlns= "http://www.w3.org/2000/svg" fill= "none" viewBox= "0 0 24 24" stroke= "currentColor" ]
+                path[stroke-linecap= "round" stroke-linejoin= "round" stroke-width= "2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" ]
+            -else
+              svg[class= "h-8 w-8 text-red-500 fill-current" xmlns= "http://www.w3.org/2000/svg" fill= "none" viewBox= "0 0 24 24" stroke= "currentColor" ]
+                path[stroke-linecap= "round" stroke-linejoin= "round" stroke-width= "2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" ]
 
-        form[style="max-width:800px; padding-left:0.5rem; padding-right:0.5rem" data-controller="chat"]
-          div[class=""]
-            input[ type="hidden" data-target="chat.post" value="#{post.id}"]
-            input[ type="hidden" data-target="chat.user" value="#{current_user.id}"]             
-            input[class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md pl-3"  data-target="chat.input"  placeholder="Escribe tu comentario..." type="text"]
-          div[class="px-4 py-3 bg-gray-50 text-right sm:px-6"]
-             button[data-action="click->chat#post"  type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"]Comentar
-            
-    
- 
-            
+          button[class="inline-flex items-center h-8 px-4 text-sm text-indigo-100 transition-colors duration-150  rounded-lg  hover:bg-gray-200 bg-while focus:outline-none" ]
+            svg[class= "h-8 w-8 text-gray-900" xmlns= "http://www.w3.org/2000/svg" fill= "none" viewBox= "0 0 24 24" stroke= "currentColor" ]
+              path[stroke-linecap= "round" stroke-linejoin= "round" stroke-width= "2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" ]
+          div[class="ml-5"]
+            p[class="font-bold"] #{Like.where(post:post).count} likes
+            p
+              b #{post.user.username}
+              |  #{post.content}
+
+        -post.comments.all.each do |comment|
+          div[class="whitespace-nowrap mb-1 mt-1"]
+            div[class="flex items-center"]
+              div[class="flex-shrink-0 w-3"]
+              - if comment.user.picture.url.nil?
+                img[class="h-6 w-6 m-1 rounded-full" src="https://avatars.githubusercontent.com/u/7952951?s=400&v=4?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60" alt=""]
+              - else
+                img[class="h-10 w-10 rounded-full" src="#{comment.user.picture.url}" alt=""]
+              div[class="ml-2"]
+                div[class="text-sm font-medium text-gray-900 font-bold"] = comment.user.username
+                div[class="text-sm text-gray-500"] = comment.content
+        hr
+        form[class="w-full" data-controller="chat"]
+          input[ type="hidden" data-target="chat.post" value="#{post.id}"]
+          input[ type="hidden" data-target="chat.user" value="#{current_user.id}"]
+          input[class="rounded-l-lg p-4 m-0 bg-white rounded-none w-4/5 " placeholder="Add a comment..."  data-target="chat.input" ]
+          button[class="px-5 rounded-r-lg  m-0 text-blue-500 font-bold p-4   w-1/5" data-action="click->chat#post" ] Post
+
+
+
