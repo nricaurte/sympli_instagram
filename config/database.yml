@@ -10,10 +10,10 @@ default: &default
   timeout: 5000
 
 development:
-  username: <%= ENV.fetch('DATA_STORAGE_USERNAME_DEVELOPMENT') %>
-  password: <%= ENV.fetch('DATA_STORAGE_PASSWORD_DEVELOPMENT') %>
-  database: <%= ENV.fetch('INSTAGRAM_DEVELOPMENT_DATABASE') %>
-  host: <%= ENV.fetch('DATA_STORAGE_HOST_DEVELOPMENT') %>
+  username: api
+  password: api
+  database: ruby
+  host: localhost
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -27,10 +27,10 @@ test:
   database: db/test.sqlite3
 
 production:
-  username: <%= ENV.fetch('DATA_STORAGE_USERNAME_PRODUCTION') %>
-  password: <%= ENV.fetch('DATA_STORAGE_PASSWORD_PRODUCTION') %>
-  database: <%= ENV.fetch('INSTAGRAM_PRODUCTION_DATABASE') %>
-  host: <%= ENV.fetch('DATA_STORAGE_HOST_PRODUCTION') %>
+  username: api
+  password: api
+  database: ruby
+  host: localhost
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
