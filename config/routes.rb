@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   get 'profile/:username', to:"profile#index"
-
   get 'followers/requests_by_user'
   get 'home/index'
+  get 'search/index'
   resources :comments
   resources :likes
   resources :posts

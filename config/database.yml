@@ -1,3 +1,4 @@
+
 # SQLite. Versions 3.8.0 and up are supported.
 #   gem install sqlite3
 #
@@ -10,10 +11,10 @@ default: &default
   timeout: 5000
 
 development:
-  username: api
-  password: api
-  database: ruby
-  host: localhost
+  username: <%= ENV.fetch('DATA_STORAGE_USERNAME_DEVELOPMENT') %>
+  password: <%= ENV.fetch('DATA_STORAGE_PASSWORD_DEVELOPMENT') %>
+  database: <%= ENV.fetch('INSTAGRAM_DEVELOPMENT_DATABASE') %>
+  host: <%= ENV.fetch('DATA_STORAGE_HOST_DEVELOPMENT') %>
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -27,10 +28,10 @@ test:
   database: db/test.sqlite3
 
 production:
-  username: api
-  password: api
-  database: ruby
-  host: localhost
+  username: <%= ENV.fetch('DATA_STORAGE_USERNAME_PRODUCTION') %>
+  password: <%= ENV.fetch('DATA_STORAGE_PASSWORD_PRODUCTION') %>
+  database: <%= ENV.fetch('INSTAGRAM_PRODUCTION_DATABASE') %>
+  host: <%= ENV.fetch('DATA_STORAGE_HOST_PRODUCTION') %>
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>

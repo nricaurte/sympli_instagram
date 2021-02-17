@@ -3,8 +3,7 @@ class FollowersReflex < ApplicationReflex
   def confirm
     followers_id = element.dataset[:followers_id]
     follower = Follower.find(followers_id)
-    accepted = 2
-    follower.update state:accepted
+    follower.update state:element.dataset[:state_id].to_i
   end
 
   def follow
@@ -12,7 +11,6 @@ class FollowersReflex < ApplicationReflex
     follower = Follower.find(followers_id)
     sent_status=1
     request = Follower.create(user:follower.follower_user, follower_user: follower.user, state:sent_status)
-    request.save
   end
 
   def follow_profile

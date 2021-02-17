@@ -4,7 +4,7 @@ div[class="flex flex-col"]
       div[class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg"]
         table[class="min-w-full divide-y divide-gray-200"]
           tbody[class="bg-white divide-y divide-gray-200"]
-          - @followers.where(state:1,user:current_user.id).each do |follower|
+          - @followers.where(state:1,user:current_user.id).or(@followers.where(state:2,user:current_user.id)).each do |follower|
             tr
               td[class="px-6 py-4 whitespace-nowrap"]
                 div[class="flex items-center"]
@@ -16,34 +16,39 @@ div[class="flex flex-col"]
                   div[class="ml-1"]
                     div[class="text-sm font-medium text-gray-900"] = follower.follower_user.username
                     div[class="text-sm text-gray-500"] = follower.follower_user.email
-              td[class="px-6 py-4 whitespace-nowrap"]
                 div[class="flex items-center"]
+
+                -if follower.state == "sent"
                   button[
                   class="inline-flex items-center bg-blue-500 h-8 px-4 m-2 text-sm text-white transition-colors duration-150  rounded-lg focus:shadow-outline hover:bg-gray-200"
                   data-reflex="click->Followers#confirm"
                   data-followers_id="#{follower.id}"
+                  data-state_id=2
                   ] Confirm
-
-          - @followers.where(state:2,user:current_user.id).each do |follower|
-            -if @followers.where(user:follower.follower_user, follower_user:follower.user, state:1).or(@followers.where(user:follower.follower_user, follower_user:follower.user, state:2)).count == 0
-              tr
-                td[class="px-6 py-4 whitespace-nowrap"]
-                  div[class="flex items-center"]
-                    div[class="flex-shrink-0 h-10 w-10"]
-                      - unless follower.follower_user.picture.url.nil?
-                       img[src="#{follower.follower_user.picture.url}" alt="picture" class="h-10 w-10 rounded-full"]
-                      - else
-                        img[class="h-10 w-10 rounded-full" src="https://avatars.githubusercontent.com/u/7952951?s=400&v=4?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60" alt=""]
-                    div[class="ml-1"]
-                      div[class="text-sm font-medium text-gray-900"] = follower.follower_user.username
-                      div[class="text-sm text-gray-500"] = follower.follower_user.email
-                td[class="px-6 py-4 whitespace-nowrap"]
-                  div[class="flex items-center"]
+                  button[
+                  class="inline-flex items-center bg-red-500 h-8 px-4 m-2 text-sm text-white transition-colors duration-150  rounded-lg focus:shadow-outline hover:bg-gray-200"
+                  data-reflex="click->Followers#confirm"
+                  data-followers_id="#{follower.id}"
+                  data-state_id=3
+                  ] Rejected
+                - else
+                  - @follower = Follower.where(user:follower.follower_user, follower_user:follower.user).where.not(state:3).first
+                  - if @follower.nil?
                     button[
                     class="inline-flex items-center bg-blue-500 h-8 px-4 m-2 text-sm text-white transition-colors duration-150  rounded-lg focus:shadow-outline hover:bg-gray-200"
                     data-reflex="click->Followers#follow"
                     data-followers_id="#{follower.id}"
                     ] Follow
+                  - elsif @follower.state == "sent"
+                    button[class="bg-opacity-100 px-2 py-1 text-gray-500 font-semibold text-sm rounded block text-center sm:inline-block block border-solid border-4 border-black-50"] Pending
+                  - else
+                    button[class="bg-opacity-100 inline-flex items-center  h-8 px-4 m-2 text-sm text-white transition-colors duration-150  rounded-lg focus:shadow-outline hover:bg-gray-200"]
+                      svg[class="h-4 w-4 fill-current text-gray-700" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"]
+                        path[stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z" ]
+
+
+
+
 
 
 
